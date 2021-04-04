@@ -6,6 +6,8 @@ March 13, 2021
 """
 from random import choice
 
+from dice import d
+
 
 class Wand:
     cores = (
@@ -26,14 +28,18 @@ class Wand:
         "Tamarack", "Vine", "Walnut", "Willow", "Yew",
     )
 
-    def __init__(self, name):
-        self.name = name
+    def __init__(self):
         self.core = choice(self.cores)
         self.wood = choice(self.woods)
+        self.bonus = d(6)
+
+    def __call__(self):
+        return d(6) + self.bonus
 
     def __str__(self):
         output = (
-            self.name,
+            f"Wand Components:",
+            f"  Bonus: {self.bonus}",
             f"  Core: {self.core}",
             f"  Wood: {self.wood}",
         )
@@ -42,4 +48,6 @@ class Wand:
 
 if __name__ == '__main__':
     print()
-    print(Wand("Razor Renfar"))
+    my_wand = Wand()
+    print(my_wand)
+    print(my_wand())
